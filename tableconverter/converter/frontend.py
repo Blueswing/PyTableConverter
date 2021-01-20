@@ -266,7 +266,7 @@ class HTMLTableConverter(AbstractTableConverter, HTMLTableListener):
         return re.sub(cls._RE_HTML_ENTITY, cls.replace_func, html_data)
 
     @classmethod
-    def replace_func(cls, match_obj: re.Match):
+    def replace_func(cls, match_obj: "re.Match"):
         raw = match_obj.group(0)
         return REVERSE_ENTITY_MAP.get(raw, raw)
 
