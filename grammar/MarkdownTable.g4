@@ -1,6 +1,6 @@
 grammar MarkdownTable;
 
-table: header sepLine body EOF;
+table: header sepLine body EOF?;
 
 header: row '\n';
 

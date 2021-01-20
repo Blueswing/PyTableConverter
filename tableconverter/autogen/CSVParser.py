@@ -12,19 +12,20 @@ else:
 def serializedATN():
     with StringIO() as buf:
         buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\7")
-        buf.write("\'\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\3\2\3\2\6\2\r\n\2\r")
-        buf.write("\2\16\2\16\3\2\3\2\3\3\3\3\3\4\3\4\3\4\7\4\30\n\4\f\4")
-        buf.write("\16\4\33\13\4\3\4\5\4\36\n\4\3\4\3\4\3\5\3\5\3\5\5\5%")
-        buf.write("\n\5\3\5\2\2\6\2\4\6\b\2\2\2\'\2\n\3\2\2\2\4\22\3\2\2")
-        buf.write("\2\6\24\3\2\2\2\b$\3\2\2\2\n\f\5\4\3\2\13\r\5\6\4\2\f")
-        buf.write("\13\3\2\2\2\r\16\3\2\2\2\16\f\3\2\2\2\16\17\3\2\2\2\17")
-        buf.write("\20\3\2\2\2\20\21\7\2\2\3\21\3\3\2\2\2\22\23\5\6\4\2\23")
-        buf.write("\5\3\2\2\2\24\31\5\b\5\2\25\26\7\3\2\2\26\30\5\b\5\2\27")
-        buf.write("\25\3\2\2\2\30\33\3\2\2\2\31\27\3\2\2\2\31\32\3\2\2\2")
-        buf.write("\32\35\3\2\2\2\33\31\3\2\2\2\34\36\7\4\2\2\35\34\3\2\2")
-        buf.write("\2\35\36\3\2\2\2\36\37\3\2\2\2\37 \7\5\2\2 \7\3\2\2\2")
-        buf.write("!%\7\6\2\2\"%\7\7\2\2#%\3\2\2\2$!\3\2\2\2$\"\3\2\2\2$")
-        buf.write("#\3\2\2\2%\t\3\2\2\2\6\16\31\35$")
+        buf.write("(\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\3\2\3\2\5\2\r\n\2\3")
+        buf.write("\2\3\2\7\2\21\n\2\f\2\16\2\24\13\2\3\2\5\2\27\n\2\3\3")
+        buf.write("\3\3\3\4\3\4\3\4\7\4\36\n\4\f\4\16\4!\13\4\3\5\3\5\3\5")
+        buf.write("\5\5&\n\5\3\5\2\2\6\2\4\6\b\2\2\2)\2\n\3\2\2\2\4\30\3")
+        buf.write("\2\2\2\6\32\3\2\2\2\b%\3\2\2\2\n\22\5\4\3\2\13\r\7\3\2")
+        buf.write("\2\f\13\3\2\2\2\f\r\3\2\2\2\r\16\3\2\2\2\16\17\7\4\2\2")
+        buf.write("\17\21\5\6\4\2\20\f\3\2\2\2\21\24\3\2\2\2\22\20\3\2\2")
+        buf.write("\2\22\23\3\2\2\2\23\26\3\2\2\2\24\22\3\2\2\2\25\27\7\2")
+        buf.write("\2\3\26\25\3\2\2\2\26\27\3\2\2\2\27\3\3\2\2\2\30\31\5")
+        buf.write("\6\4\2\31\5\3\2\2\2\32\37\5\b\5\2\33\34\7\5\2\2\34\36")
+        buf.write("\5\b\5\2\35\33\3\2\2\2\36!\3\2\2\2\37\35\3\2\2\2\37 \3")
+        buf.write("\2\2\2 \7\3\2\2\2!\37\3\2\2\2\"&\7\6\2\2#&\7\7\2\2$&\3")
+        buf.write("\2\2\2%\"\3\2\2\2%#\3\2\2\2%$\3\2\2\2&\t\3\2\2\2\7\f\22")
+        buf.write("\26\37%")
         return buf.getvalue()
 
 
@@ -38,7 +39,7 @@ class CSVParser ( Parser ):
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ "<INVALID>", "','", "'\r'", "'\n'" ]
+    literalNames = [ "<INVALID>", "'\r'", "'\n'", "','" ]
 
     symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "TEXT", "STRING" ]
@@ -76,15 +77,15 @@ class CSVParser ( Parser ):
             return self.getTypedRuleContext(CSVParser.HdrContext,0)
 
 
-        def EOF(self):
-            return self.getToken(CSVParser.EOF, 0)
-
         def row(self, i:int=None):
             if i is None:
                 return self.getTypedRuleContexts(CSVParser.RowContext)
             else:
                 return self.getTypedRuleContext(CSVParser.RowContext,i)
 
+
+        def EOF(self):
+            return self.getToken(CSVParser.EOF, 0)
 
         def getRuleIndex(self):
             return CSVParser.RULE_fil
@@ -109,20 +110,34 @@ class CSVParser ( Parser ):
             self.enterOuterAlt(localctx, 1)
             self.state = 8
             self.hdr()
-            self.state = 10 
+            self.state = 16
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while True:
-                self.state = 9
-                self.row()
-                self.state = 12 
+            while _la==CSVParser.T__0 or _la==CSVParser.T__1:
+                self.state = 10
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << CSVParser.T__0) | (1 << CSVParser.T__1) | (1 << CSVParser.T__2) | (1 << CSVParser.TEXT) | (1 << CSVParser.STRING))) != 0)):
-                    break
+                if _la==CSVParser.T__0:
+                    self.state = 9
+                    self.match(CSVParser.T__0)
 
-            self.state = 14
-            self.match(CSVParser.EOF)
+
+                self.state = 12
+                self.match(CSVParser.T__1)
+                self.state = 13
+                self.row()
+                self.state = 18
+                self._errHandler.sync(self)
+                _la = self._input.LA(1)
+
+            self.state = 20
+            self._errHandler.sync(self)
+            la_ = self._interp.adaptivePredict(self._input,2,self._ctx)
+            if la_ == 1:
+                self.state = 19
+                self.match(CSVParser.EOF)
+
+
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -162,7 +177,7 @@ class CSVParser ( Parser ):
         self.enterRule(localctx, 2, self.RULE_hdr)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 16
+            self.state = 22
             self.row()
         except RecognitionException as re:
             localctx.exception = re
@@ -207,30 +222,20 @@ class CSVParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 18
+            self.state = 24
             self.field()
-            self.state = 23
+            self.state = 29
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==CSVParser.T__0:
-                self.state = 19
-                self.match(CSVParser.T__0)
-                self.state = 20
-                self.field()
+            while _la==CSVParser.T__2:
                 self.state = 25
+                self.match(CSVParser.T__2)
+                self.state = 26
+                self.field()
+                self.state = 31
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 27
-            self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            if _la==CSVParser.T__1:
-                self.state = 26
-                self.match(CSVParser.T__1)
-
-
-            self.state = 29
-            self.match(CSVParser.T__2)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -314,22 +319,22 @@ class CSVParser ( Parser ):
         localctx = CSVParser.FieldContext(self, self._ctx, self.state)
         self.enterRule(localctx, 6, self.RULE_field)
         try:
-            self.state = 34
+            self.state = 35
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [CSVParser.TEXT]:
                 localctx = CSVParser.TextContext(self, localctx)
                 self.enterOuterAlt(localctx, 1)
-                self.state = 31
+                self.state = 32
                 self.match(CSVParser.TEXT)
                 pass
             elif token in [CSVParser.STRING]:
                 localctx = CSVParser.StringContext(self, localctx)
                 self.enterOuterAlt(localctx, 2)
-                self.state = 32
+                self.state = 33
                 self.match(CSVParser.STRING)
                 pass
-            elif token in [CSVParser.T__0, CSVParser.T__1, CSVParser.T__2]:
+            elif token in [CSVParser.EOF, CSVParser.T__0, CSVParser.T__1, CSVParser.T__2]:
                 localctx = CSVParser.EmptyContext(self, localctx)
                 self.enterOuterAlt(localctx, 3)
 

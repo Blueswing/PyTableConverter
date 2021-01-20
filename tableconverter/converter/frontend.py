@@ -1,17 +1,17 @@
 import re
-from tableconverter.autogen.MarkdownTableLexer import MarkdownTableLexer
-from antlr4 import CommonTokenStream
-from antlr4.InputStream import InputStream
 from typing import Dict
 from collections import deque
-
-from antlr4.tree.Tree import ParseTreeWalker
+from antlr4 import TokenStream, CommonTokenStream, Parser, Lexer
+from antlr4.error.ErrorListener import ConsoleErrorListener
+from antlr4.InputStream import InputStream
+from antlr4.tree.Tree import ParseTree, ParseTreeListener, ParseTreeWalker
 from ..autogen.CSVLexer import CSVLexer
 from ..autogen.CSVParser import CSVParser
 from ..autogen.CSVListener import CSVListener
 from ..autogen.JSONTableLexer import JSONTableLexer
 from ..autogen.JSONTableParser import JSONTableParser
 from ..autogen.JSONTableListener import JSONTableListener
+from ..autogen.MarkdownTableLexer import MarkdownTableLexer
 from ..autogen.MarkdownTableParser import MarkdownTableParser
 from ..autogen.MarkdownTableListener import MarkdownTableListener
 from ..autogen.HTMLLexer import HTMLLexer
@@ -21,7 +21,17 @@ from ..model import Table
 from ..util import REVERSE_ENTITY_MAP
 
 
-class AbstractTableConverter:
+class SourceSyntaxError(Exception):
+    pass
+
+
+class ExceptionalErrorListener(ConsoleErrorListener):
+    def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
+        err = "line " + str(line) + ":" + str(column) + " " + msg
+        raise SourceSyntaxError(err)
+
+
+class AbstractTableConverter(ParseTreeListener):
     def get_result(self) -> Table:
         raise NotImplementedError()
 
@@ -41,6 +51,61 @@ class AbstractFrontend:
         converter = self._get_converter()
         self._walker.walk(converter, tree)
         return converter.get_result()
+
+
+class AbstractParseTreeFactory:
+    def __init__(self) -> None:
+        self._error_listener = ExceptionalErrorListener()
+
+    def get_lexer(self, in_stream: InputStream) -> Lexer:
+        lexer = self._get_lexer(in_stream)
+        self._change_error_listener(lexer)
+        return lexer
+
+    def get_parser(self, in_stream: InputStream) -> Parser:
+        lexer = self.get_lexer(in_stream)
+        token_stream = CommonTokenStream(lexer)
+        parser = self._get_parser(token_stream)
+        self._change_error_listener(parser)
+        return parser
+
+    def _change_error_listener(self, recog) -> None:
+        recog.removeErrorListeners()
+        recog.addErrorListener(self._error_listener)
+
+    def _get_lexer(self, in_stream: InputStream) -> Lexer:
+        raise NotImplementedError()
+
+    def _get_parser(self, token_stream: TokenStream) -> Parser:
+        raise NotImplementedError()
+
+    def get_tree(self, in_stream: InputStream) -> ParseTree:
+        raise NotImplementedError()
+
+
+class CSVParseTreeFactory(AbstractParseTreeFactory):
+    def _get_lexer(self, in_stream: InputStream) -> Lexer:
+        return CSVLexer(in_stream)
+
+    def _get_parser(self, token_stream: TokenStream) -> Parser:
+        return CSVParser(token_stream)
+
+    def get_tree(self, in_stream: InputStream) -> ParseTree:
+        return self.get_parser(in_stream).fil()
+
+
+class BaseFrontend(AbstractFrontend):
+    def _get_lexer(self, in_stream: InputStream) -> Lexer:
+        raise NotImplementedError()
+
+    def _get_parser(self: TokenStream) -> Parser:
+        raise NotImplementedError()
+
+    def _get_tree(self, in_stream: InputStream):
+        lexer = self._get_lexer(in_stream)
+        token_stream = CommonTokenStream(lexer)
+        parser = self._get_parser(token_stream)
+        parser.removeErrorListeners()
 
 
 class JSONTableConverter(AbstractTableConverter, JSONTableListener):
@@ -126,7 +191,7 @@ class JSONTableFrontend(AbstractFrontend):
         return parser.table()
 
 
-class CSVTableConverter(AbstractTableConverter, CSVListener):
+class CSVConverter(AbstractTableConverter, CSVListener):
     def __init__(self) -> None:
         self._in_header = False
         self._table_obj = Table()
@@ -160,13 +225,11 @@ class CSVTableConverter(AbstractTableConverter, CSVListener):
 
 class CSVFrontend(AbstractFrontend):
     def _get_converter(self) -> AbstractTableConverter:
-        return CSVTableConverter()
+        return CSVConverter()
 
     def _get_tree(self, in_stream: InputStream):
-        lexer = CSVLexer(in_stream)
-        token_stream = CommonTokenStream(lexer)
-        parser = CSVParser(token_stream)
-        return parser.fil()
+        factory = CSVParseTreeFactory()
+        return factory.get_tree(in_stream)
 
 
 class MarkdownTableConverter(AbstractTableConverter, MarkdownTableListener):

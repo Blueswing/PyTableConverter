@@ -12,24 +12,24 @@ else:
 def serializedATN():
     with StringIO() as buf:
         buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\7")
-        buf.write("8\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\3\2")
-        buf.write("\3\2\3\2\3\2\3\2\3\3\3\3\3\3\3\4\3\4\3\4\6\4\32\n\4\r")
-        buf.write("\4\16\4\33\3\4\3\4\3\5\3\5\3\5\7\5#\n\5\f\5\16\5&\13\5")
-        buf.write("\3\5\3\5\5\5*\n\5\3\6\3\6\3\6\3\6\6\6\60\n\6\r\6\16\6")
-        buf.write("\61\3\7\3\7\5\7\66\n\7\3\7\2\2\b\2\4\6\b\n\f\2\2\2\66")
-        buf.write("\2\16\3\2\2\2\4\23\3\2\2\2\6\26\3\2\2\2\b$\3\2\2\2\n+")
-        buf.write("\3\2\2\2\f\65\3\2\2\2\16\17\5\4\3\2\17\20\5\6\4\2\20\21")
-        buf.write("\5\b\5\2\21\22\7\2\2\3\22\3\3\2\2\2\23\24\5\n\6\2\24\25")
-        buf.write("\7\3\2\2\25\5\3\2\2\2\26\31\7\4\2\2\27\30\7\5\2\2\30\32")
-        buf.write("\7\4\2\2\31\27\3\2\2\2\32\33\3\2\2\2\33\31\3\2\2\2\33")
-        buf.write("\34\3\2\2\2\34\35\3\2\2\2\35\36\7\3\2\2\36\7\3\2\2\2\37")
-        buf.write(" \5\n\6\2 !\7\3\2\2!#\3\2\2\2\"\37\3\2\2\2#&\3\2\2\2$")
-        buf.write("\"\3\2\2\2$%\3\2\2\2%\'\3\2\2\2&$\3\2\2\2\')\5\n\6\2(")
-        buf.write("*\7\3\2\2)(\3\2\2\2)*\3\2\2\2*\t\3\2\2\2+/\7\4\2\2,-\5")
-        buf.write("\f\7\2-.\7\4\2\2.\60\3\2\2\2/,\3\2\2\2\60\61\3\2\2\2\61")
-        buf.write("/\3\2\2\2\61\62\3\2\2\2\62\13\3\2\2\2\63\66\7\6\2\2\64")
-        buf.write("\66\3\2\2\2\65\63\3\2\2\2\65\64\3\2\2\2\66\r\3\2\2\2\7")
-        buf.write("\33$)\61\65")
+        buf.write("9\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\3\2")
+        buf.write("\3\2\3\2\3\2\5\2\23\n\2\3\3\3\3\3\3\3\4\3\4\3\4\6\4\33")
+        buf.write("\n\4\r\4\16\4\34\3\4\3\4\3\5\3\5\3\5\7\5$\n\5\f\5\16\5")
+        buf.write("\'\13\5\3\5\3\5\5\5+\n\5\3\6\3\6\3\6\3\6\6\6\61\n\6\r")
+        buf.write("\6\16\6\62\3\7\3\7\5\7\67\n\7\3\7\2\2\b\2\4\6\b\n\f\2")
+        buf.write("\2\28\2\16\3\2\2\2\4\24\3\2\2\2\6\27\3\2\2\2\b%\3\2\2")
+        buf.write("\2\n,\3\2\2\2\f\66\3\2\2\2\16\17\5\4\3\2\17\20\5\6\4\2")
+        buf.write("\20\22\5\b\5\2\21\23\7\2\2\3\22\21\3\2\2\2\22\23\3\2\2")
+        buf.write("\2\23\3\3\2\2\2\24\25\5\n\6\2\25\26\7\3\2\2\26\5\3\2\2")
+        buf.write("\2\27\32\7\4\2\2\30\31\7\5\2\2\31\33\7\4\2\2\32\30\3\2")
+        buf.write("\2\2\33\34\3\2\2\2\34\32\3\2\2\2\34\35\3\2\2\2\35\36\3")
+        buf.write("\2\2\2\36\37\7\3\2\2\37\7\3\2\2\2 !\5\n\6\2!\"\7\3\2\2")
+        buf.write("\"$\3\2\2\2# \3\2\2\2$\'\3\2\2\2%#\3\2\2\2%&\3\2\2\2&")
+        buf.write("(\3\2\2\2\'%\3\2\2\2(*\5\n\6\2)+\7\3\2\2*)\3\2\2\2*+\3")
+        buf.write("\2\2\2+\t\3\2\2\2,\60\7\4\2\2-.\5\f\7\2./\7\4\2\2/\61")
+        buf.write("\3\2\2\2\60-\3\2\2\2\61\62\3\2\2\2\62\60\3\2\2\2\62\63")
+        buf.write("\3\2\2\2\63\13\3\2\2\2\64\67\7\6\2\2\65\67\3\2\2\2\66")
+        buf.write("\64\3\2\2\2\66\65\3\2\2\2\67\r\3\2\2\2\b\22\34%*\62\66")
         return buf.getvalue()
 
 
@@ -120,8 +120,14 @@ class MarkdownTableParser ( Parser ):
             self.sepLine()
             self.state = 14
             self.body()
-            self.state = 15
-            self.match(MarkdownTableParser.EOF)
+            self.state = 16
+            self._errHandler.sync(self)
+            la_ = self._interp.adaptivePredict(self._input,0,self._ctx)
+            if la_ == 1:
+                self.state = 15
+                self.match(MarkdownTableParser.EOF)
+
+
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -161,9 +167,9 @@ class MarkdownTableParser ( Parser ):
         self.enterRule(localctx, 2, self.RULE_header)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 17
-            self.row()
             self.state = 18
+            self.row()
+            self.state = 19
             self.match(MarkdownTableParser.T__0)
         except RecognitionException as re:
             localctx.exception = re
@@ -207,23 +213,23 @@ class MarkdownTableParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 20
+            self.state = 21
             self.match(MarkdownTableParser.T__1)
-            self.state = 23 
+            self.state = 24 
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
-                self.state = 21
-                self.match(MarkdownTableParser.BAR)
                 self.state = 22
+                self.match(MarkdownTableParser.BAR)
+                self.state = 23
                 self.match(MarkdownTableParser.T__1)
-                self.state = 25 
+                self.state = 26 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if not (_la==MarkdownTableParser.BAR):
                     break
 
-            self.state = 27
+            self.state = 28
             self.match(MarkdownTableParser.T__0)
         except RecognitionException as re:
             localctx.exception = re
@@ -268,26 +274,26 @@ class MarkdownTableParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 34
+            self.state = 35
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,1,self._ctx)
+            _alt = self._interp.adaptivePredict(self._input,2,self._ctx)
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt==1:
-                    self.state = 29
-                    self.row()
                     self.state = 30
+                    self.row()
+                    self.state = 31
                     self.match(MarkdownTableParser.T__0) 
-                self.state = 36
+                self.state = 37
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,1,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,2,self._ctx)
 
-            self.state = 37
+            self.state = 38
             self.row()
-            self.state = 39
+            self.state = 40
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==MarkdownTableParser.T__0:
-                self.state = 38
+                self.state = 39
                 self.match(MarkdownTableParser.T__0)
 
 
@@ -334,17 +340,17 @@ class MarkdownTableParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 41
+            self.state = 42
             self.match(MarkdownTableParser.T__1)
-            self.state = 45 
+            self.state = 46 
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
-                self.state = 42
-                self.item()
                 self.state = 43
+                self.item()
+                self.state = 44
                 self.match(MarkdownTableParser.T__1)
-                self.state = 47 
+                self.state = 48 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if not (_la==MarkdownTableParser.T__1 or _la==MarkdownTableParser.STRING):
@@ -387,12 +393,12 @@ class MarkdownTableParser ( Parser ):
         localctx = MarkdownTableParser.ItemContext(self, self._ctx, self.state)
         self.enterRule(localctx, 10, self.RULE_item)
         try:
-            self.state = 51
+            self.state = 52
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [MarkdownTableParser.STRING]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 49
+                self.state = 50
                 self.match(MarkdownTableParser.STRING)
                 pass
             elif token in [MarkdownTableParser.T__1]:

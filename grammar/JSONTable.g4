@@ -3,7 +3,7 @@
 // Derived from http://json.org
 grammar JSONTable;
 
-table: arr EOF;
+table: arr EOF?;
 
 arr:
 	'[' simpleObj (',' simpleObj)* ']'		# objTable

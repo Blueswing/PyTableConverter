@@ -52,7 +52,7 @@ table:
 			htmlContent TAG_OPEN TAG_SLASH TAG_TABLE TAG_CLOSE
 		)?
 		| TAG_SLASH_CLOSE
-	);
+	) EOF?;
 
 htmlElement:
 	TAG_OPEN tag = TAG_NAME htmlAttribute* (
