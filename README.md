@@ -1,4 +1,6 @@
 # PyTableConverter
+![](demos/assets/demo.png)
+
 A command line tool to convert tables in various formats.
 
 [![](https://img.shields.io/pypi/v/tableconverter.svg)](https://pypi.python.org/pypi/tableconverter)
