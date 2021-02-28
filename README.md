@@ -12,6 +12,13 @@ pip install --upgrade tableconverter
 ```
 
 ### Examples
+
+![](demos/assets/csv_md.gif)
+
+![](demos/assets/csv_json.gif)
+
+![](demos/assets/csv_html.gif)
+
 You can give the input file and the distination format, e.g.
 
 ```bash
