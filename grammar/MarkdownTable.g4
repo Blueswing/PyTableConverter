@@ -2,18 +2,20 @@ grammar MarkdownTable;
 
 table: header sepLine body EOF?;
 
-header: row '\n';
+header: row NL;
 
-sepLine: '|' (BAR '|')+ '\n';
+sepLine: '|' (BAR '|')+ NL;
 
-body: (row '\n')* row '\n'?;
+body: (row NL)* row NL?;
 
-row:  '|' (item '|')+ ;
+row: '|' (item '|')+;
 
-item: STRING | ;
+item: STRING |;
 
 BAR: ':'? '-'+ ':'?;
 
-STRING: ( '\\\\' | '\\|' | ~( '\\' | '|' ) )+;
+STRING: ( '\\\\' | '\\|' | ~( '\\' | '|' | '\r' | '\n'))+;
+
+NL: '\r'? '\n';
 
 WS: [ \t\n\r] -> skip;

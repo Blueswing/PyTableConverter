@@ -20,15 +20,15 @@ def serializedATN():
         buf.write("\2\28\2\16\3\2\2\2\4\24\3\2\2\2\6\27\3\2\2\2\b%\3\2\2")
         buf.write("\2\n,\3\2\2\2\f\66\3\2\2\2\16\17\5\4\3\2\17\20\5\6\4\2")
         buf.write("\20\22\5\b\5\2\21\23\7\2\2\3\22\21\3\2\2\2\22\23\3\2\2")
-        buf.write("\2\23\3\3\2\2\2\24\25\5\n\6\2\25\26\7\3\2\2\26\5\3\2\2")
-        buf.write("\2\27\32\7\4\2\2\30\31\7\5\2\2\31\33\7\4\2\2\32\30\3\2")
+        buf.write("\2\23\3\3\2\2\2\24\25\5\n\6\2\25\26\7\6\2\2\26\5\3\2\2")
+        buf.write("\2\27\32\7\3\2\2\30\31\7\4\2\2\31\33\7\3\2\2\32\30\3\2")
         buf.write("\2\2\33\34\3\2\2\2\34\32\3\2\2\2\34\35\3\2\2\2\35\36\3")
-        buf.write("\2\2\2\36\37\7\3\2\2\37\7\3\2\2\2 !\5\n\6\2!\"\7\3\2\2")
+        buf.write("\2\2\2\36\37\7\6\2\2\37\7\3\2\2\2 !\5\n\6\2!\"\7\6\2\2")
         buf.write("\"$\3\2\2\2# \3\2\2\2$\'\3\2\2\2%#\3\2\2\2%&\3\2\2\2&")
-        buf.write("(\3\2\2\2\'%\3\2\2\2(*\5\n\6\2)+\7\3\2\2*)\3\2\2\2*+\3")
-        buf.write("\2\2\2+\t\3\2\2\2,\60\7\4\2\2-.\5\f\7\2./\7\4\2\2/\61")
+        buf.write("(\3\2\2\2\'%\3\2\2\2(*\5\n\6\2)+\7\6\2\2*)\3\2\2\2*+\3")
+        buf.write("\2\2\2+\t\3\2\2\2,\60\7\3\2\2-.\5\f\7\2./\7\3\2\2/\61")
         buf.write("\3\2\2\2\60-\3\2\2\2\61\62\3\2\2\2\62\60\3\2\2\2\62\63")
-        buf.write("\3\2\2\2\63\13\3\2\2\2\64\67\7\6\2\2\65\67\3\2\2\2\66")
+        buf.write("\3\2\2\2\63\13\3\2\2\2\64\67\7\5\2\2\65\67\3\2\2\2\66")
         buf.write("\64\3\2\2\2\66\65\3\2\2\2\67\r\3\2\2\2\b\22\34%*\62\66")
         return buf.getvalue()
 
@@ -43,10 +43,9 @@ class MarkdownTableParser ( Parser ):
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ "<INVALID>", "'\n'", "'|'" ]
+    literalNames = [ "<INVALID>", "'|'" ]
 
-    symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "BAR", "STRING", 
-                      "WS" ]
+    symbolicNames = [ "<INVALID>", "<INVALID>", "BAR", "STRING", "NL", "WS" ]
 
     RULE_table = 0
     RULE_header = 1
@@ -59,9 +58,9 @@ class MarkdownTableParser ( Parser ):
 
     EOF = Token.EOF
     T__0=1
-    T__1=2
-    BAR=3
-    STRING=4
+    BAR=2
+    STRING=3
+    NL=4
     WS=5
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
@@ -147,6 +146,9 @@ class MarkdownTableParser ( Parser ):
             return self.getTypedRuleContext(MarkdownTableParser.RowContext,0)
 
 
+        def NL(self):
+            return self.getToken(MarkdownTableParser.NL, 0)
+
         def getRuleIndex(self):
             return MarkdownTableParser.RULE_header
 
@@ -170,7 +172,7 @@ class MarkdownTableParser ( Parser ):
             self.state = 18
             self.row()
             self.state = 19
-            self.match(MarkdownTableParser.T__0)
+            self.match(MarkdownTableParser.NL)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -185,6 +187,9 @@ class MarkdownTableParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+
+        def NL(self):
+            return self.getToken(MarkdownTableParser.NL, 0)
 
         def BAR(self, i:int=None):
             if i is None:
@@ -214,7 +219,7 @@ class MarkdownTableParser ( Parser ):
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 21
-            self.match(MarkdownTableParser.T__1)
+            self.match(MarkdownTableParser.T__0)
             self.state = 24 
             self._errHandler.sync(self)
             _la = self._input.LA(1)
@@ -222,7 +227,7 @@ class MarkdownTableParser ( Parser ):
                 self.state = 22
                 self.match(MarkdownTableParser.BAR)
                 self.state = 23
-                self.match(MarkdownTableParser.T__1)
+                self.match(MarkdownTableParser.T__0)
                 self.state = 26 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
@@ -230,7 +235,7 @@ class MarkdownTableParser ( Parser ):
                     break
 
             self.state = 28
-            self.match(MarkdownTableParser.T__0)
+            self.match(MarkdownTableParser.NL)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -252,6 +257,12 @@ class MarkdownTableParser ( Parser ):
             else:
                 return self.getTypedRuleContext(MarkdownTableParser.RowContext,i)
 
+
+        def NL(self, i:int=None):
+            if i is None:
+                return self.getTokens(MarkdownTableParser.NL)
+            else:
+                return self.getToken(MarkdownTableParser.NL, i)
 
         def getRuleIndex(self):
             return MarkdownTableParser.RULE_body
@@ -282,7 +293,7 @@ class MarkdownTableParser ( Parser ):
                     self.state = 30
                     self.row()
                     self.state = 31
-                    self.match(MarkdownTableParser.T__0) 
+                    self.match(MarkdownTableParser.NL) 
                 self.state = 37
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,2,self._ctx)
@@ -292,9 +303,9 @@ class MarkdownTableParser ( Parser ):
             self.state = 40
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==MarkdownTableParser.T__0:
+            if _la==MarkdownTableParser.NL:
                 self.state = 39
-                self.match(MarkdownTableParser.T__0)
+                self.match(MarkdownTableParser.NL)
 
 
         except RecognitionException as re:
@@ -341,7 +352,7 @@ class MarkdownTableParser ( Parser ):
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 42
-            self.match(MarkdownTableParser.T__1)
+            self.match(MarkdownTableParser.T__0)
             self.state = 46 
             self._errHandler.sync(self)
             _la = self._input.LA(1)
@@ -349,11 +360,11 @@ class MarkdownTableParser ( Parser ):
                 self.state = 43
                 self.item()
                 self.state = 44
-                self.match(MarkdownTableParser.T__1)
+                self.match(MarkdownTableParser.T__0)
                 self.state = 48 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not (_la==MarkdownTableParser.T__1 or _la==MarkdownTableParser.STRING):
+                if not (_la==MarkdownTableParser.T__0 or _la==MarkdownTableParser.STRING):
                     break
 
         except RecognitionException as re:
@@ -401,7 +412,7 @@ class MarkdownTableParser ( Parser ):
                 self.state = 50
                 self.match(MarkdownTableParser.STRING)
                 pass
-            elif token in [MarkdownTableParser.T__1]:
+            elif token in [MarkdownTableParser.T__0]:
                 self.enterOuterAlt(localctx, 2)
 
                 pass
