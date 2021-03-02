@@ -1,9 +1,31 @@
 # PyTableConverter
-![](demos/assets/demo.png)
+![](docs/assets/demo.png)
 
 A command line tool to convert tables in various formats.
 
-[![](https://img.shields.io/pypi/v/tableconverter.svg)](https://pypi.python.org/pypi/tableconverter)
+[![](https://img.shields.io/pypi/v/tableconverter.svg?color=success)](https://pypi.python.org/pypi/tableconverter)
+
+## Examples
+
+* CSV to Markdown
+
+![](docs/assets/csv_md.gif)
+
+* CSV to JSON
+
+![](docs/assets/csv_json.gif)
+
+* CSV to HTML
+
+![](docs/assets/csv_html.gif)
+
+* Markdown to CSV
+
+![](docs/assets/md_csv.gif)
+
+* Markdown to JSON
+
+![](docs/assets/md_json.gif)
 
 ## Quick start
 
@@ -13,15 +35,9 @@ A command line tool to convert tables in various formats.
 pip install --upgrade tableconverter
 ```
 
-### Examples
+### Basic usage
 
-![](demos/assets/csv_md.gif)
-
-![](demos/assets/csv_json.gif)
-
-![](demos/assets/csv_html.gif)
-
-You can give the input file and the distination format, e.g.
+You can give the input file and the destination format, e.g.
 
 ```bash
 tableconverter demos/assets/example.csv -d html
@@ -62,7 +78,7 @@ tableconverter demos/assets/example.csv -d html -o example.html
 
 and the output will be written to `example.html`.
 
-If not input file is given, the command will expect input from `stdin`,
+If no input file is given, the command will expect the input from `stdin`. In this case, the source format `-s csv` **MUST** be given.
 
 ```bash
 tableconverter -s csv -d html -o example.html
@@ -70,9 +86,7 @@ tableconverter -s csv -d html -o example.html
 # ends with <CTRL-D> on Unix or <CTRL-Z> on Windows
 ```
 
-In this case, the source format `-s csv` **MUST** be given.
-
-You can also so use the command with `Heredoc`
+You can also so use the command with `Heredoc` and the output will be the same.
 ```bash
 cat << EOF | tableconverter -s csv -d html > example.html
 > col1,col2,col3
@@ -81,8 +95,6 @@ cat << EOF | tableconverter -s csv -d html > example.html
 > 1111,2222,3333
 > EOF
 ```
-
-and the output will be the same.
 
 
 ## Supported formats
